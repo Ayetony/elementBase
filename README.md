@@ -1,2 +1,2 @@
 # elemtentBase
- base enginnering folder for web admin projects
+ base engineering folder for web admin projects
