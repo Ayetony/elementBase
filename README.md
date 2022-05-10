@@ -56,6 +56,80 @@
 接口测试软件apifox
 项目中基于apifox的mock接口可在mock中获取**element.apifox.json**
 
+## element-ui表单可视化快速生成工具
+
+### [Form Generator ](https://mrhj.gitee.io/form-generator/#/)
+
+## DEMO-试卷管理实现流程
+
+> 1、@/src/views/ 下创建testpaper目录
+-------
+> 2、@/src/views/testpaper 下创建index.vue做为此模块的page视图
+-------
+> 3、在[vue-element-admin](https://panjiachen.github.io/vue-element-admin/#/dashboard)中找到类似的页面这里已[@/src/views/table/complex-table.vue]为例
+-------
+> 4、在@/src/router/index.js添加页面路由，这里把testpaper做为动态路由
+```
+export const asyncRoutes = [
+  {
+    path: '/testpaper',
+    component: Layout,
+    children: [{
+      name: 'testpaper',
+      path: '',
+      component: () => import('@/views/testpaper/index'),
+      meta: {
+        title: '试卷管理',
+        icon: 'el-icon-s-order',
+        roles: ['teacher']
+      }
+    }]
+  }
+]
+```
+-------
+> 5、@/src/api/ 创建test-paper.js文件的api接口
+```
+import request from '@/utils/request'
+
+export function paperList(token) {
+  return request({
+    url: '/paperlist',
+    method: 'get',
+    params: { token }
+  })
+}
+```
+-------
+> 6、在@/src/views/table/complex-table.vue引入@/api/test-paper使用
+```
+import { paperList } from '@/api/test-paper'
+paperList({ page:1,pageSize:20 }).then(response => {
+        const { data } = response     
+ })
+```
+-------
+> 7、如果需要请求中加入header头token信息，修改 @/src/utils/request.js文件中的方法
+```
+service.interceptors.request.use(
+  config => {
+    // 请求之前配置
+    if (store.getters.token) {
+      config.headers['token'] = getToken()
+    }
+    return config
+  },
+  error => {
+    //请求错误回调
+    console.log(error) // for debug
+    return Promise.reject(error)
+  }
+)
+```
+-------
+> 8、如果需要请求中加入header头token信息，修改 @/src/utils/request.js文件中的方法
+-------
+
 ## 项目测试环境运行
 ```
 #### clone the project
