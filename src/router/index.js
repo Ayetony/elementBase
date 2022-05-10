@@ -49,34 +49,7 @@ export const constantRoutes = [{
     }
   }]
 },
-{
-  path: '/user',
-  component: Layout,
-  children: [{
-    name: 'user',
-    path: '',
-    component: () => import('@/views/user/index'),
-    meta: {
-      title: '账号管理',
-      icon: 'el-icon-monitor'
-    }
-  }]
-},
-{
-  path: '/system',
-  component: Layout,
-  alwaysShow: true,
-  name: 'system',
-  meta: { title: '系统设置', icon: 'el-icon-monitor' },
-  children: [
-    {
-      path: 'about',
-      component: () => import('@/views/system/about'),
-      name: 'about',
-      meta: { title: '关于我们' }
-    }
-  ]
-},
+
 {
   path: '/404',
   component: () => import('@/views/404'),
@@ -91,19 +64,85 @@ export const constantRoutes = [{
  */
 export const asyncRoutes = [
   {
-    path: '/order',
+    path: '/testpaper',
     component: Layout,
     children: [{
-      name: 'order',
+      name: 'testpaper',
       path: '',
-      component: () => import('@/views/order/index'),
+      component: () => import('@/views/testpaper/index'),
       meta: {
-        title: '订单数据(测试权限)',
-        icon: 'el-icon-monitor',
-        roles: ['edit']
+        title: '试卷管理',
+        icon: 'el-icon-s-order',
+        roles: ['teacher']
       }
     }]
-  }
+  },
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user',
+    children: [{
+      name: 'user',
+      path: '',
+      component: () => import('@/views/user/index'),
+      meta: {
+        title: '用户管理',
+        icon: 'el-icon-user-solid',
+        roles: ['admin']
+      }
+    }]
+  },
+  {
+    path: '/adminuser',
+    component: Layout,
+    redirect: '/adminuser',
+    children: [{
+      name: 'adminuser',
+      path: '',
+      component: () => import('@/views/adminuser/index'),
+      meta: {
+        title: '管理员管理',
+        icon: 'el-icon-s-platform',
+        roles: ['admin']
+      }
+    }]
+  },
+  // {
+  //   path: '/roles',
+  //   component: Layout,
+  //   redirect: '/roles',
+  //   children: [{
+  //     name: 'roles',
+  //     path: '',
+  //     component: () => import('@/views/roles/index'),
+  //     meta: {
+  //       title: '角色管理',
+  //       icon: 'el-icon-menu',
+  //       roles: ['admin']
+  //     }
+  //   }]
+  // },
+  {
+    path: '/system',
+    component: Layout,
+    alwaysShow: true,
+    name: 'system',
+    meta: { title: '系统设置', icon: 'el-icon-s-tools', roles: ['admin'] },
+    children: [
+      {
+        path: 'about',
+        component: () => import('@/views/system/about'),
+        name: 'about',
+        meta: { title: '关于我们' }
+      },
+      {
+        path: 'config',
+        component: () => import('@/views/system/config'),
+        name: 'config',
+        meta: { title: '小程序设置' }
+      }
+    ]
+  },
 ]
 
 /**
